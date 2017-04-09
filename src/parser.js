@@ -183,7 +183,14 @@ export default class Parser {
         return this.renderer.paragraph(this.parseText())
       }
       default: {
-        throw new Error('Unknow type')
+        for (const plugin of this.options.plugins) {
+          if (plugin.parse) {
+            const result = plugin.parse(this.token)
+            if (result !== undefined) {
+              return result
+            }
+          }
+        }
       }
     }
   }

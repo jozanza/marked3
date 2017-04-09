@@ -57,6 +57,22 @@ class Lexer {
         }
       }
 
+      const usePlugin = this.options.plugins.some(plugin => {
+        if (plugin.lexer) {
+          const result = plugin.lexer(src)
+          if (result) {
+            src = result.src
+            this.tokens.push(result.token)
+            return true
+          }
+        }
+        return false
+      })
+
+      if (usePlugin) {
+        continue
+      }
+
       // code
       if (cap = this.rules.code.exec(src)) {
         src = src.substring(cap[0].length)

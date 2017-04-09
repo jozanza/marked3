@@ -39,6 +39,22 @@ class InlineLexer {
     let cap
 
     while (src) {
+      const usePlugin = this.options.plugins.some(plugin => {
+        if (plugin.inlineLexer) {
+          const result = plugin.inlineLexer(src)
+          if (result) {
+            src = result.src
+            out += result.out
+            return true
+          }
+        }
+        return false
+      })
+
+      if (usePlugin) {
+        continue
+      }
+
       // escape
       if (cap = this.rules.escape.exec(src)) {
         src = src.substring(cap[0].length)
