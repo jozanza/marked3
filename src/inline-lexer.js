@@ -39,7 +39,7 @@ class InlineLexer {
     let cap
 
     while (src) {
-      const usePlugin = this.options.plugins.some(plugin => {
+      const usePlugin = this.options.plugins.some(plugin => { // eslint-disable-line no-loop-func
         if (plugin.inlineLexer) {
           const result = plugin.inlineLexer(src)
           if (result) {
@@ -47,6 +47,7 @@ class InlineLexer {
             out += result.out
             return true
           }
+          return false
         }
         return false
       })
