@@ -22,9 +22,11 @@ You can find a CDN version at https://unpkg.com/mmark/
 ## Usage
 
 ```js
-const mmark = require('mmark')
+const MMark = require('mmark')
 
-const html = mmark(`## hello world
+const mmark = new MMark()
+
+const html = mmark.render(`## hello world
 
 A modern **markdown** parser!
 
@@ -37,14 +39,7 @@ You can preview the HTML result here: https://egoistian.com/md2html/ ([source](h
 
 ## API
 
-### mmark(src, [options])
-
-#### src
-
-Type: `string`<br>
-Required: `true`
-
-Input markdown string.
+### new MMark([options])
 
 #### options
 
@@ -56,6 +51,19 @@ Type: `boolean`<br>
 Default: `true`
 
 Enable GFM task lists, this will only work if `options.gfm` is `true`.
+
+### mmark.render(src)
+
+#### src
+
+Type: `string`<br>
+Required: `true`
+
+Input markdown string.
+
+### mmark.use(plugin)
+
+Use an mmark plugin.
 
 ## Contributing
 

@@ -15,7 +15,7 @@ mmark.use({
     let cap
     if (cap = /^\${3}(.*)\n([\s\S]+)\n\${3}/m.exec(src)) {
       return {
-        src: src.slice(cap[0].length),
+        src: src.substring(cap[0].length),
         token: {
           type: 'run-code',
           lang: cap[1],
