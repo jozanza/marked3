@@ -25,7 +25,7 @@ export default class Parser {
    */
 
   parse(src) {
-    this.inline = new InlineLexer(src.links, this.options, this.renderer)
+    this.inline = new InlineLexer(src.links, this)
     this.tokens = src.reverse()
 
     let out = ''

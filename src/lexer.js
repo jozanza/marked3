@@ -59,7 +59,7 @@ class Lexer {
 
       const usePlugin = this.options.plugins.some(plugin => { // eslint-disable-line no-loop-func
         if (plugin.lexer) {
-          const result = plugin.lexer(src)
+          const result = plugin.lexer.call(this, src)
           if (result) {
             src = result.src
             this.tokens.push(result.token)

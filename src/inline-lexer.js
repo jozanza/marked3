@@ -4,8 +4,9 @@ import inlineRules from './inline-rules'
 import { escape } from './utils'
 
 class InlineLexer {
-  constructor(links, options = defaultOptions) {
-    this.options = options
+  constructor(links, parser) {
+    this.parser = parser
+    this.options = parser.options
     this.links = links
     this.renderer = this.options.renderer || new Renderer()
     this.renderer.options = this.options
@@ -41,7 +42,7 @@ class InlineLexer {
     while (src) {
       const usePlugin = this.options.plugins.some(plugin => { // eslint-disable-line no-loop-func
         if (plugin.inlineLexer) {
-          const result = plugin.inlineLexer(src)
+          const result = plugin.inlineLexer.call(this, src)
           if (result) {
             src = result.src
             out += result.out
